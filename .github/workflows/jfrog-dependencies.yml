@@ -1,0 +1,45 @@
+
+name: JFrog dependency resolution
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  dependencies:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out Juice Shop
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Set up JFrog CLI
+        uses: jfrog/setup-jfrog-cli@v4
+        env:
+          JF_URL: ${{ vars.JF_URL }}
+          JF_ACCESS_TOKEN: ${{ secrets.JF_ACCESS_TOKEN }}
+
+      - name: Verify JFrog connection
+        run: jf rt ping
+
+      - name: Configure npm resolution through Artifactory
+        run: |
+          jf npm-config \
+            --server-id-resolve=setup-jfrog-cli-server \
+            --repo-resolve=npm-virtual
+
+      - name: Install locked dependencies through JFrog
+        run: |
+          jf npm ci \
+            --build-name=juice-shop \
+            --build-number=${{ github.run_number }}
