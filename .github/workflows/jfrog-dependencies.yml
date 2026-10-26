@@ -49,3 +49,9 @@ jobs:
           jf npm ci \
             --build-name=juice-shop \
             --build-number=${{ github.run_number }}
+
+      - name: Show available npm scripts
+        run: npm run
+
+      - name: Run existing tests
+        run: jf npm test
