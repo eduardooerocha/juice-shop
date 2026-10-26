@@ -38,6 +38,12 @@ jobs:
             --server-id-resolve=setup-jfrog-cli-server \
             --repo-resolve=npm-virtual
 
+      - name: Verify npm registry
+        run: |
+          npm config get registry
+          jf npm-config --help
+
+
       - name: Install locked dependencies through JFrog
         run: |
           jf npm ci \
