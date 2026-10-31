@@ -53,5 +53,9 @@ jobs:
       - name: Show available npm scripts
         run: npm run
 
+      - name: Publish Build Info to JFrog
+        run: |
+          jf rt build-publish juice-shop ${{ github.run_number }}
+
       - name: Run existing tests
         run: jf npm test
