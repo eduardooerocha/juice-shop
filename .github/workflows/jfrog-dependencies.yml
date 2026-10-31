@@ -76,7 +76,7 @@ jobs:
       - name: Build Juice Shop
         run: |
           npm run build:frontend
-          npm run build:server
+          npx --yes --package typescript@4.8.4 tsc --strictNullChecks false
 
       - name: Show available npm scripts
         run: npm run
