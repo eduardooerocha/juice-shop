@@ -38,6 +38,14 @@ jobs:
             --server-id-resolve=setup-jfrog-cli-server \
             --repo-resolve=npm-virtual
 
+      - name: Configure frontend npm resolution
+        run: |
+          cd frontend
+          jf npm-config \
+            --server-id-resolve=setup-jfrog-cli-server \
+            --repo-resolve=npm-virtual
+          cd ..
+
       - name: Verify npm registry
         run: |
           npm config get registry
