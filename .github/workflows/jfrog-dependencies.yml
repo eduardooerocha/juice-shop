@@ -73,6 +73,12 @@ jobs:
             --build-number=${{ github.run_number }}
           cd ..
 
+      - name: Verify Angular CLI installation
+        run: |
+          cd frontend
+          ls node_modules/.bin/ng
+          cd ..
+
       - name: Build Juice Shop
         run: |
           npm run build:frontend
