@@ -46,6 +46,13 @@ jobs:
             --repo-resolve=npm-virtual
           cd ..
 
+       - name: Verify frontend npm registry
+        run: |
+          cd frontend
+          npm config get registry
+          npm config get userconfig
+          cd ..
+
       - name: Verify npm registry
         run: |
           npm config get registry
