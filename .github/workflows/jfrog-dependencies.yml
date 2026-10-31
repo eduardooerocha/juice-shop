@@ -59,11 +59,24 @@ jobs:
           jf npm-config --help
 
 
-      - name: Install locked dependencies through JFrog
+      - name: Install root dependencies through JFrog
         run: |
-          jf npm ci \
+          jf npm ci --ignore-scripts \
             --build-name=juice-shop \
             --build-number=${{ github.run_number }}
+
+      - name: Install frontend dependencies through JFrog
+        run: |
+          cd frontend
+          jf npm install --legacy-peer-deps --ignore-scripts \
+            --build-name=juice-shop \
+            --build-number=${{ github.run_number }}
+          cd ..
+
+      - name: Build Juice Shop
+        run: |
+          npm run build:frontend
+          npm run --silent build:server
 
       - name: Show available npm scripts
         run: npm run
