@@ -76,8 +76,8 @@ jobs:
       - name: Build Juice Shop
         run: |
           npm run build:frontend
-          npx --yes --package typescript@5.4.5 tsc --version
-          npx --yes --package typescript@5.4.5 tsc
+          npx --yes --package typescript@5.0.4 tsc --version
+          npx --yes --package typescript@5.0.4git add .github/workflows/jfrog-dependencies.yml tsc
 
       - name: Show available npm scripts
         run: npm run
