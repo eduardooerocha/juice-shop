@@ -77,7 +77,7 @@ jobs:
         run: |
           npm run build:frontend
           npx --yes --package typescript@5.0.4 tsc --version
-          npx --yes --package typescript@5.0.4 tsc
+          npx --yes --package typescript@4.8.4 tsc
 
       - name: Show available npm scripts
         run: npm run
