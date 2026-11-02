@@ -61,7 +61,7 @@ jobs:
 
       - name: Install root dependencies through JFrog
         run: |
-          jf npm ci --ignore-scripts \
+          jf npm ci --include=dev --ignore-scripts \
             --build-name=juice-shop \
             --build-number=${{ github.run_number }}
 
