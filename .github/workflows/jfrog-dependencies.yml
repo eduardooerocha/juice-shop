@@ -78,8 +78,9 @@ jobs:
             --build-number=${{ github.run_number }}
           cd ..
 
-      - name: Rebuild native dependencies
-        run: npm rebuild
+      - name: Rebuild required native dependencies
+        run: |
+          npm rebuild sqlite3 libxmljs2
         env:
           npm_config_python: python3
 
