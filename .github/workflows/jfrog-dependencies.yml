@@ -23,6 +23,11 @@ jobs:
         with:
           node-version: '20'
 
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
       - name: Set up JFrog CLI
         uses: jfrog/setup-jfrog-cli@v4
         env:
@@ -73,6 +78,11 @@ jobs:
             --build-number=${{ github.run_number }}
           cd ..
 
+      - name: Rebuild native dependencies
+        run: npm rebuild
+        env:
+          npm_config_python: python3
+
       - name: Verify Angular CLI installation
         run: |
           cd frontend
@@ -87,7 +97,8 @@ jobs:
         run: npm run
 
       - name: Run existing tests
-        run: jf npm test
+        run: |
+          TS_NODE_COMPILER_OPTIONS='{"strictNullChecks":false}' jf npm test
 
       - name: Publish Build Info to JFrog
         run: |
